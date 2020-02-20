@@ -19,7 +19,7 @@ public class JwtUtil {
   public static final String TOKEN_BEARER = "Bearer ";
 
   private static final String SECRET_KEY = "SuperSecureSuperSecretSuperKey";
-  private static final long EXPIRATION_TIME = 237846123;
+  private static final long EXPIRATION_TIME = 3600000;
   // endregion Fields
 
 
@@ -56,7 +56,10 @@ public class JwtUtil {
 
   // region Generation
   public String generateToken(UserDetails userDetails) {
-    return this.createToken(new HashMap<>(), userDetails.getUsername());
+    HashMap<String, Object> claims = new HashMap<>();
+    String role = userDetails.getAuthorities().stream().findFirst().toString();
+    claims.put("claim", role);
+    return this.createToken(claims, userDetails.getUsername());
   }
 
   private String createToken(Map<String, Object> claims, String username) {
