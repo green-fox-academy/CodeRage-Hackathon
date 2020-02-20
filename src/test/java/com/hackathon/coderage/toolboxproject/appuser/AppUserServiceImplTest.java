@@ -61,8 +61,6 @@ public class AppUserServiceImplTest {
     when(appUserRepository.findById(1)).thenReturn(appUser);
     when(appUserRepository.save(any())).thenAnswer(i -> i.getArguments()[0]);
 
-    appUser.setRole("Admin");
-
     Assert.assertEquals(appUser,
         appUserService.changeUserRole(new ModificationRequestDTO("Admin", 1)));
   }
