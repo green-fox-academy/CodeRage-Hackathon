@@ -7,7 +7,6 @@ import com.hackathon.coderage.toolboxproject.dto.RegisterResponseDTO;
 import com.hackathon.coderage.toolboxproject.exceptions.MissingParameterException;
 import com.hackathon.coderage.toolboxproject.exceptions.UsernameAlreadyTakenException;
 import com.hackathon.coderage.toolboxproject.security.AuthenticationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,7 +39,7 @@ public class AppUserServiceImpl implements AppUserService {
         passwordEncoder.encode(registerRequestDTO.getPassword()),
         registerRequestDTO.getFullName(),
         registerRequestDTO.getQualification());
-    appUser.setRole("Adminboi");
+    appUser.setRole("baseUser");
     return this.appUserRepository.save(appUser);
   }
 
@@ -52,7 +51,8 @@ public class AppUserServiceImpl implements AppUserService {
   }
 
   @Override
-  public LoginResponseDTO login(LoginRequestDTO loginRequestDTO) throws BadCredentialsException, UsernameNotFoundException {
+  public LoginResponseDTO login(LoginRequestDTO loginRequestDTO)
+      throws BadCredentialsException, UsernameNotFoundException {
     return new LoginResponseDTO(authenticationService.authenticate(loginRequestDTO));
   }
 

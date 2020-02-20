@@ -38,10 +38,10 @@ public class AppUserController {
   }
 
   @PostMapping("/login")
-  public ResponseEntity loginUser(@RequestBody(required = false) LoginRequestDTO loginRequestDTO){
-    try{
+  public ResponseEntity loginUser(@RequestBody(required = false) LoginRequestDTO loginRequestDTO) {
+    try {
       return ResponseEntity.status(HttpStatus.OK).body(appUserService.login(loginRequestDTO));
-    } catch (BadCredentialsException | UsernameNotFoundException e){
+    } catch (BadCredentialsException | UsernameNotFoundException e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
     }
   }

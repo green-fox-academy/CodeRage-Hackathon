@@ -28,7 +28,8 @@ public class CodeRageUserDetailsService implements UserDetailsService {
   }
 
   @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, BadCredentialsException {
+  public UserDetails loadUserByUsername(String username)
+      throws UsernameNotFoundException, BadCredentialsException {
     AppUser appUser = appUserRepository.findByUsernameIgnoreCase(username);
     List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
     grantedAuthorities.add(new SimpleGrantedAuthority(appUser.getRole()));
