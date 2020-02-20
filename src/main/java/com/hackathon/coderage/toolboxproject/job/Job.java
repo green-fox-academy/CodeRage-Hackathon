@@ -1,7 +1,6 @@
 package com.hackathon.coderage.toolboxproject.job;
 
-import com.hackathon.coderage.toolboxproject.appuser.AppCustomer;
-import com.hackathon.coderage.toolboxproject.appuser.AppSpecialist;
+import com.hackathon.coderage.toolboxproject.appuser.AppUser;
 import com.hackathon.coderage.toolboxproject.tool.Tool;
 import java.util.List;
 import javax.persistence.Entity;
@@ -27,13 +26,13 @@ public abstract class Job {
   private long id;
 
   @ManyToMany(mappedBy = "jobs")
-  private List<AppSpecialist> employees;
+  private List<AppUser> employees;
 
   @ManyToMany(mappedBy = "jobs")
   private List<Tool> tools;
 
   @ManyToOne
-  private AppCustomer customer;
+  private AppUser customer;
 
   private String type;
   private long start;
@@ -41,7 +40,7 @@ public abstract class Job {
   private String status;
   private long price;
 
-  public Job(List<AppSpecialist> employees, List<Tool> tools) {
+  public Job(List<AppUser> employees, List<Tool> tools) {
     this.employees = employees;
     this.tools = tools;
   }
