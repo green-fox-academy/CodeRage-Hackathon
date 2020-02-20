@@ -20,9 +20,11 @@ public abstract class AppUser {
 
   private String name;
   private String role;
+  private String password;
 
-  public AppUser(String name, String role) {
+  public AppUser(String name, String role, String password) {
     this.name = name;
     this.role = role;
+    this.password = password;
   }
 }

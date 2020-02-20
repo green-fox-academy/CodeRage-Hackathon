@@ -10,4 +10,6 @@ public interface AppUserRepository extends CrudRepository<AppUser, Long> {
   List<AppUser> findAllByNameContains(String name);
 
   List<AppUser> findAllByRole(String role);
+
+  AppUser findByNameIgnoreCase(String username);
 }
