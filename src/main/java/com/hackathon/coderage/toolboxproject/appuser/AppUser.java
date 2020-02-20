@@ -22,7 +22,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Setter
 @NoArgsConstructor
 @Table(name = "users")
-public abstract class AppUser {
+public class AppUser {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +33,7 @@ public abstract class AppUser {
   private String fullName;
   private String role;
   private String qualification;
+  private int hourlyWage;
 
   @ManyToMany(cascade = CascadeType.ALL)
   @LazyCollection(LazyCollectionOption.FALSE)

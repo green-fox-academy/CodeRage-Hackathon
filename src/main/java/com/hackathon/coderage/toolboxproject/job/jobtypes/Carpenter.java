@@ -1,6 +1,6 @@
 package com.hackathon.coderage.toolboxproject.job.jobtypes;
 
-import com.hackathon.coderage.toolboxproject.appuser.AppSpecialist;
+import com.hackathon.coderage.toolboxproject.appuser.AppUser;
 import com.hackathon.coderage.toolboxproject.job.Job;
 import com.hackathon.coderage.toolboxproject.tool.Tool;
 import java.util.List;
@@ -15,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Carpenter extends Job {
 
-  public Carpenter(List<AppSpecialist> employees, List<Tool> tools) {
+  public Carpenter(List<AppUser> employees, List<Tool> tools) {
     super(employees, tools);
   }
 }

@@ -22,10 +22,11 @@ public class AppUserServiceImpl implements AppUserService {
 
   private AppUser registerAppUser(RegisterRequestDTO registerRequestDTO) {
     return this.appUserRepository.save(
-        new AppCustomer(
+        new AppUser(
             registerRequestDTO.getUsername(),
             registerRequestDTO.getPassword(),
-            registerRequestDTO.getFullName())
+            registerRequestDTO.getFullName(),
+            registerRequestDTO.getQualification())
     );
   }
 
