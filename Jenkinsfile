@@ -14,7 +14,7 @@ pipeline {
         sh './gradlew build --rerun-tasks'
       }
     }
-     stage('Deploy docker image') {
+    stage('Deploy docker image') {
       steps {
         script {
           dockerImage = docker.build registry + ":latest"
