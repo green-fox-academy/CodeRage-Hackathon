@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AppAdmin extends AppUser {
 
-  public AppAdmin(String name) {
-    super(name, "Admin", "Administration");
+  public AppAdmin(String name, String password) {
+    super(name, "Admin",password, "Administration");
   }
 }

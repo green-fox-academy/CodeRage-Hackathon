@@ -1,5 +1,6 @@
 package com.hackathon.coderage.toolboxproject.security.utils;
 
+import com.hackathon.coderage.toolboxproject.security.CodeRageUserDetailsService;
 import com.hackathon.coderage.toolboxproject.security.filters.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   // region Fields
-  private UserDetailsService aragoniteUserDetailsService;
+  private UserDetailsService codeRageUserDeteailsService;
   private JwtRequestFilter jwtRequestFilter;
   // endregion Fields
 
@@ -25,9 +26,9 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   // region Constructors
   @Autowired
   public WebSecurityConfig(
-      UserDetailsService aragoniteUserDetailsService,
+      CodeRageUserDetailsService codeRageUserDeteailsService,
       JwtRequestFilter jwtRequestFilter) {
-    this.aragoniteUserDetailsService = aragoniteUserDetailsService;
+    this.codeRageUserDeteailsService = codeRageUserDeteailsService;
     this.jwtRequestFilter = jwtRequestFilter;
   }
   // endregion Constructors
@@ -35,7 +36,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(this.aragoniteUserDetailsService);
+    auth.userDetailsService(this.codeRageUserDeteailsService);
   }
 
   @Override
