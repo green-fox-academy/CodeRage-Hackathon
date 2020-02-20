@@ -1,5 +1,7 @@
 package com.hackathon.coderage.toolboxproject.tool;
 
+import com.hackathon.coderage.toolboxproject.dto.ToolRequestDTO;
+import com.hackathon.coderage.toolboxproject.exceptions.MissingParameterException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +22,11 @@ public class ToolServiceImpl implements ToolService {
   }
 
   @Override
-  public Tool addTool(String name, int hourlyPrice) {
-    return this.toolRepository.save(new Tool(name, hourlyPrice));
+  public Tool addTool(ToolRequestDTO requestDTO) throws MissingParameterException {
+    if (requestDTO == null || !requestDTO.getName().isBlank()) {
+      throw new MissingParameterException("Missing parameters!");
+    }
+    return this.toolRepository.save(new Tool(requestDTO.getName(), requestDTO.getHourlyPrice()));
   }
 
   @Override
