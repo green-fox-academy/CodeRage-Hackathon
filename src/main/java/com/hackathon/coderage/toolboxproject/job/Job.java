@@ -1,12 +1,14 @@
 package com.hackathon.coderage.toolboxproject.job;
 
-import com.hackathon.coderage.toolboxproject.appuser.AppUser;
-import com.hackathon.coderage.toolboxproject.project.Project;
+import com.hackathon.coderage.toolboxproject.appuser.AppCustomer;
+import com.hackathon.coderage.toolboxproject.appuser.AppSpecialist;
+import com.hackathon.coderage.toolboxproject.tool.Tool;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -24,11 +26,18 @@ public class Job {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  @ManyToOne
-  @JoinColumn(name = "employee_id", referencedColumnName = "id")
-  private AppUser employee;
+  @ManyToMany(mappedBy = "jobs")
+  private List<AppSpecialist> employee;
+
+  @ManyToMany(mappedBy = "jobs")
+  private List<Tool> tools;
 
   @ManyToOne
-  @JoinColumn(name = "project_id", referencedColumnName = "id")
-  private Project project;
+  private AppCustomer customer;
+
+  private String type;
+  private long start;
+  private long end;
+  private String status;
+  private long price;
 }
