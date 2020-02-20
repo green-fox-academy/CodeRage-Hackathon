@@ -16,7 +16,7 @@ pipeline {
     }
     stage('Deploy docker image') {
       when{
-          branch 'master'
+          branch 'develop'
       }
       steps {
         script {
@@ -31,7 +31,7 @@ pipeline {
     }
     stage('Deploy to AWS') {
       when{
-          branch 'master'
+          branch 'develop'
       }
       steps {
         withAWS(credentials:'malachite4', region: 'eu-central-1') {
