@@ -16,4 +16,6 @@ public interface AppUserRepository extends CrudRepository<AppUser, Long> {
   List<AppUser> findAllByRole(String role);
 
   List<AppUser> findAllByQualificationContains(String qualification);
+
+  AppUser findById(long id);
 }
