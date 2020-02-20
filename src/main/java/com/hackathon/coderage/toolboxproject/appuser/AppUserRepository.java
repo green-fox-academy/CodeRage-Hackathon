@@ -18,4 +18,6 @@ public interface AppUserRepository extends CrudRepository<AppUser, Long> {
   AppUser findByUsernameIgnoreCase(String username);
 
   List<AppUser> findAllByQualificationContains(String qualification);
+
+  AppUser findById(long id);
 }
