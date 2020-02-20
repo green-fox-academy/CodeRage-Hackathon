@@ -20,14 +20,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Table(name = "jobs")
-public class Job {
+public abstract class Job {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
   @ManyToMany(mappedBy = "jobs")
-  private List<AppSpecialist> employee;
+  private List<AppSpecialist> employees;
 
   @ManyToMany(mappedBy = "jobs")
   private List<Tool> tools;
@@ -40,4 +40,9 @@ public class Job {
   private long end;
   private String status;
   private long price;
+
+  public Job(List<AppSpecialist> employees, List<Tool> tools) {
+    this.employees = employees;
+    this.tools = tools;
+  }
 }
