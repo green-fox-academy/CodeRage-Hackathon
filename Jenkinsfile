@@ -2,7 +2,7 @@ pipeline {
   agent any
   environment {
     registry = "orsilarssen/coderage2020"
-    registryCredential = 'orsilarssen'
+    registryCredential = 'docOL'
     dockerImage = ''
     ENV_NAME = "CoderageHackathon-env"
     S3_BUCKET = "elasticbeanstalk-eu-central-1-124429370407"
@@ -14,13 +14,15 @@ pipeline {
         sh './gradlew build --rerun-tasks'
       }
     }
-    stage('Deploy docker image') {
-      steps {
+    stage('Building image') {
+      steps{
         script {
           dockerImage = docker.build registry + ":latest"
-          docker.withRegistry( '', registryCredential )
-          dockerImage.push()
         }
+      }
+    }
+    stage('Deploy Image') {
+      steps{
         script {
           docker.withRegistry( '', registryCredential ) {
             dockerImage.push()
