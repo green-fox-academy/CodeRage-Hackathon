@@ -1,8 +1,8 @@
 package com.hackathon.coderage.toolboxproject.appuser;
 
 import com.hackathon.coderage.toolboxproject.dto.ErrorResponseDTO;
-import com.hackathon.coderage.toolboxproject.dto.ModificationRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.LoginRequestDTO;
+import com.hackathon.coderage.toolboxproject.dto.ModificationRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.RegisterRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.ResponseDTO;
 import com.hackathon.coderage.toolboxproject.dto.UserResponseDTO;
@@ -10,10 +10,10 @@ import com.hackathon.coderage.toolboxproject.exceptions.MissingParameterExceptio
 import com.hackathon.coderage.toolboxproject.exceptions.UsernameAlreadyTakenException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;

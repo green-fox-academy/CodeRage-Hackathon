@@ -1,8 +1,8 @@
 package com.hackathon.coderage.toolboxproject.appuser;
 
-import com.hackathon.coderage.toolboxproject.dto.ModificationRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.LoginRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.LoginResponseDTO;
+import com.hackathon.coderage.toolboxproject.dto.ModificationRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.RegisterRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.RegisterResponseDTO;
 import com.hackathon.coderage.toolboxproject.exceptions.MissingParameterException;
