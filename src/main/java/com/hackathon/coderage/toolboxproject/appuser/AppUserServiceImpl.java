@@ -1,5 +1,6 @@
 package com.hackathon.coderage.toolboxproject.appuser;
 
+import com.hackathon.coderage.toolboxproject.dto.ModificationRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.RegisterRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.RegisterResponseDTO;
 import com.hackathon.coderage.toolboxproject.exceptions.MissingParameterException;
@@ -41,12 +42,28 @@ public class AppUserServiceImpl implements AppUserService {
       throws MissingParameterException, UsernameAlreadyTakenException {
     if (registerRequestDTO.getUsername().isBlank() || registerRequestDTO.getPassword().isBlank()) {
       throw new MissingParameterException("Username or password is missing or invalid!");
-    } else if (this.appUserRepository.existsByUsernameEquals(registerRequestDTO.getUsername())) {
-      throw new UsernameAlreadyTakenException("Username already taken!");
     } else if (registerRequestDTO.getFullName().isBlank()) {
       throw new MissingParameterException("Full name is missing or invalid!");
     } else if (registerRequestDTO.getQualification().isBlank()) {
       throw new MissingParameterException("Qualification is missing or invalid!");
+    } else if (this.appUserRepository.existsByUsernameEquals(registerRequestDTO.getUsername())) {
+      throw new UsernameAlreadyTakenException("Username already taken!");
     }
+  }
+
+  @Override
+  public AppUser changeUserRole(ModificationRequestDTO requestDTO)
+      throws MissingParameterException {
+    if (requestDTO == null || requestDTO.getRole().isBlank()) {
+      throw new MissingParameterException("Role is not defined.");
+    }
+    AppUser appUser = this.appUserRepository.findById(requestDTO.getId());
+    appUser.setRole(requestDTO.getRole());
+    return this.appUserRepository.save(appUser);
+  }
+
+  @Override
+  public void deleteUserById(long id) {
+    this.appUserRepository.deleteById(id);
   }
 }
