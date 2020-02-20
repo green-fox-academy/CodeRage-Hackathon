@@ -2,6 +2,7 @@ package com.hackathon.coderage.toolboxproject.appuser;
 
 import com.hackathon.coderage.toolboxproject.dto.ErrorResponseDTO;
 import com.hackathon.coderage.toolboxproject.dto.ModificationRequestDTO;
+import com.hackathon.coderage.toolboxproject.dto.LoginRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.RegisterRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.ResponseDTO;
 import com.hackathon.coderage.toolboxproject.dto.UserResponseDTO;
@@ -11,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,6 +40,16 @@ public class AppUserController {
     } catch (UsernameAlreadyTakenException e) {
       return ResponseEntity.status(HttpStatus.CONFLICT)
           .body(new ErrorResponseDTO("error", e.getMessage()));
+    }
+  }
+
+  @PostMapping("/login")
+  public ResponseEntity loginUser(@RequestBody(required = false) LoginRequestDTO loginRequestDTO) {
+    try {
+      return ResponseEntity.status(HttpStatus.OK).body(appUserService.login(loginRequestDTO));
+    } catch (BadCredentialsException | UsernameNotFoundException e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .body(new ErrorResponseDTO("error", "Username or password incorrect!"));
     }
   }
 
