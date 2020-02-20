@@ -35,8 +35,8 @@ public abstract class Job {
   private AppUser customer;
 
   private String type;
-  private long start;
-  private long end;
+  private long startTime;
+  private long endTime;
   private String status;
   private long price;
 
