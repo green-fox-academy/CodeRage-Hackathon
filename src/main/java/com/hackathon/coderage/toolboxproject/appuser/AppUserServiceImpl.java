@@ -1,18 +1,31 @@
 package com.hackathon.coderage.toolboxproject.appuser;
 
+import com.hackathon.coderage.toolboxproject.dto.LoginRequestDTO;
+import com.hackathon.coderage.toolboxproject.dto.LoginResponseDTO;
 import com.hackathon.coderage.toolboxproject.dto.RegisterRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.RegisterResponseDTO;
 import com.hackathon.coderage.toolboxproject.exceptions.MissingParameterException;
 import com.hackathon.coderage.toolboxproject.exceptions.UsernameAlreadyTakenException;
+import com.hackathon.coderage.toolboxproject.security.AuthenticationService;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AppUserServiceImpl implements AppUserService {
 
   private AppUserRepository appUserRepository;
+  private AuthenticationService authenticationService;
+  private PasswordEncoder passwordEncoder;
 
-  public AppUserServiceImpl(AppUserRepository appUserRepository) {
+  public AppUserServiceImpl(
+      AppUserRepository appUserRepository,
+      AuthenticationService authenticationService,
+      PasswordEncoder passwordEncoder) {
     this.appUserRepository = appUserRepository;
+    this.authenticationService = authenticationService;
+    this.passwordEncoder = passwordEncoder;
   }
 
   @Override
@@ -21,13 +34,13 @@ public class AppUserServiceImpl implements AppUserService {
   }
 
   private AppUser registerAppUser(RegisterRequestDTO registerRequestDTO) {
-    return this.appUserRepository.save(
-        new AppUser(
-            registerRequestDTO.getUsername(),
-            registerRequestDTO.getPassword(),
-            registerRequestDTO.getFullName(),
-            registerRequestDTO.getQualification())
-    );
+    AppUser appUser = new AppUser(
+        registerRequestDTO.getUsername(),
+        passwordEncoder.encode(registerRequestDTO.getPassword()),
+        registerRequestDTO.getFullName(),
+        registerRequestDTO.getQualification());
+    appUser.setRole("baseUser");
+    return this.appUserRepository.save(appUser);
   }
 
   @Override
@@ -35,6 +48,12 @@ public class AppUserServiceImpl implements AppUserService {
       throws UsernameAlreadyTakenException, MissingParameterException {
     validateRegistration(registerRequestDTO);
     return new RegisterResponseDTO(this.registerAppUser(registerRequestDTO));
+  }
+
+  @Override
+  public LoginResponseDTO login(LoginRequestDTO loginRequestDTO)
+      throws BadCredentialsException, UsernameNotFoundException {
+    return new LoginResponseDTO(authenticationService.authenticate(loginRequestDTO));
   }
 
   public void validateRegistration(RegisterRequestDTO registerRequestDTO)

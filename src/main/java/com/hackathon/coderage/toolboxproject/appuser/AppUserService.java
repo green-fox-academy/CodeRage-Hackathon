@@ -1,9 +1,12 @@
 package com.hackathon.coderage.toolboxproject.appuser;
 
+import com.hackathon.coderage.toolboxproject.dto.LoginRequestDTO;
+import com.hackathon.coderage.toolboxproject.dto.LoginResponseDTO;
 import com.hackathon.coderage.toolboxproject.dto.RegisterRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.RegisterResponseDTO;
 import com.hackathon.coderage.toolboxproject.exceptions.MissingParameterException;
 import com.hackathon.coderage.toolboxproject.exceptions.UsernameAlreadyTakenException;
+import org.springframework.security.authentication.BadCredentialsException;
 
 public interface AppUserService {
 
@@ -11,4 +14,6 @@ public interface AppUserService {
 
   RegisterResponseDTO register(RegisterRequestDTO registerRequestDTO)
       throws UsernameAlreadyTakenException, MissingParameterException;
+
+  LoginResponseDTO login(LoginRequestDTO loginRequestDTO) throws BadCredentialsException;
 }
