@@ -5,7 +5,6 @@ import com.hackathon.coderage.toolboxproject.appuser.AppUserRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -29,16 +28,14 @@ public class CodeRageUserDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username)
-      throws UsernameNotFoundException, BadCredentialsException {
+      throws UsernameNotFoundException {
     AppUser appUser = appUserRepository.findByUsernameIgnoreCase(username);
     List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
     grantedAuthorities.add(new SimpleGrantedAuthority(appUser.getRole()));
     return new User(
         appUser.getUsername(),
         appUser.getPassword(),
-        grantedAuthorities
-
-        // list of granted authorities
+        grantedAuthorities // list of granted authorities
     );
   }
 }

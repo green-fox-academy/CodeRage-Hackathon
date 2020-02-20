@@ -42,7 +42,8 @@ public class AppUserController {
     try {
       return ResponseEntity.status(HttpStatus.OK).body(appUserService.login(loginRequestDTO));
     } catch (BadCredentialsException | UsernameNotFoundException e) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+          .body(new ErrorResponseDTO("error", "Username or password incorrect!"));
     }
   }
 }
