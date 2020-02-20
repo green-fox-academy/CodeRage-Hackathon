@@ -15,9 +15,6 @@ pipeline {
       }
     }
     stage('Deploy docker image') {
-      when{
-          branch 'develop'
-      }
       steps {
         script {
           dockerImage = docker.build registry + ":latest"
@@ -30,9 +27,6 @@ pipeline {
       }
     }
     stage('Deploy to AWS') {
-      when{
-          branch 'develop'
-      }
       steps {
         withAWS(credentials:'malachite4', region: 'eu-central-1') {
           sh 'aws s3 cp ./Dockerrun.aws.json \
