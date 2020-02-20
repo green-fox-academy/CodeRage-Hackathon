@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "Users")
 public abstract class AppUser {
 
   @Id
@@ -20,9 +22,11 @@ public abstract class AppUser {
 
   private String name;
   private String role;
+  private String qualification;
 
-  public AppUser(String name, String role) {
+  public AppUser(String name, String role, String qualification) {
     this.name = name;
     this.role = role;
+    this.qualification = qualification;
   }
 }
