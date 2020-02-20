@@ -1,6 +1,5 @@
 package com.hackathon.coderage.toolboxproject.dto;
 
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ToolsResponseDTO {
+public class ModificationRequestDTO extends RequestDTO {
 
-  private List<ToolResponseDTO> tools;
+  private String role;
+  private long id;
 }
