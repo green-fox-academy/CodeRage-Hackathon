@@ -21,7 +21,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "app_users")
+@Table(name = "Users")
 public abstract class AppUser {
 
   @Id
@@ -30,6 +30,7 @@ public abstract class AppUser {
 
   private String name;
   private String role;
+  private String qualification;
 
   @OneToMany(
       cascade = CascadeType.ALL,
@@ -45,8 +46,9 @@ public abstract class AppUser {
   @LazyCollection(LazyCollectionOption.FALSE)
   private List<Project> projects = new ArrayList<>();
 
-  public AppUser(String name, String role) {
+  public AppUser(String name, String role, String qualification) {
     this.name = name;
     this.role = role;
+    this.qualification = qualification;
   }
 }
