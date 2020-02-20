@@ -13,8 +13,9 @@ public class AppSpecialist extends AppUser {
 
   private int hourlyWage = 0;
 
-  public AppSpecialist(String name, String qualification, int hourlyWage) {
-    super(name, "Employee", qualification);
+  public AppSpecialist(
+      String username, String password, String fullName, String qualification, int hourlyWage) {
+    super(username, password, fullName, qualification);
     this.hourlyWage = hourlyWage;
   }
 }

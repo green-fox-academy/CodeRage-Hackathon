@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AppCustomer extends AppUser {
 
-  public AppCustomer(String name) {
-    super(name, "Customer", "Private");
+  public AppCustomer(String username, String password, String fullName) {
+    super(username, password, fullName, "Private");
   }
 }

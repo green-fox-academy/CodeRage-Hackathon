@@ -20,13 +20,16 @@ public abstract class AppUser {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  private String name;
+  private String username;
+  private String password;
+  private String fullName;
   private String role;
   private String qualification;
 
-  public AppUser(String name, String role, String qualification) {
-    this.name = name;
-    this.role = role;
+  public AppUser(String username, String password, String fullName, String qualification) {
+    this.username = username;
+    this.password = password;
+    this.fullName = fullName;
     this.qualification = qualification;
   }
 }
