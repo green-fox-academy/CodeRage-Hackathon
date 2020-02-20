@@ -22,15 +22,18 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Setter
 @NoArgsConstructor
 @Table(name = "users")
-public abstract class AppUser {
+public class AppUser {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  private String name;
+  private String username;
+  private String password;
+  private String fullName;
   private String role;
   private String qualification;
+  private int hourlyWage;
 
   @ManyToMany(cascade = CascadeType.ALL)
   @LazyCollection(LazyCollectionOption.FALSE)
@@ -40,9 +43,10 @@ public abstract class AppUser {
   @LazyCollection(LazyCollectionOption.FALSE)
   private List<Job> orders = new ArrayList<>();
 
-  public AppUser(String name, String role, String qualification) {
-    this.name = name;
-    this.role = role;
+  public AppUser(String username, String password, String fullName, String qualification) {
+    this.username = username;
+    this.password = password;
+    this.fullName = fullName;
     this.qualification = qualification;
   }
 }
