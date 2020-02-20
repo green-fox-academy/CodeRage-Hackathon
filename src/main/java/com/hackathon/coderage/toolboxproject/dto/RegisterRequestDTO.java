@@ -1,4 +1,4 @@
-package com.hackathon.coderage.toolboxproject.security;
+package com.hackathon.coderage.toolboxproject.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,11 +7,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class LoginRequestDTO {
+@NoArgsConstructor
+public class RegisterRequestDTO extends RequestDTO {
 
   private String username;
   private String password;
-
+  private String fullName;
+  private String qualification;
 }

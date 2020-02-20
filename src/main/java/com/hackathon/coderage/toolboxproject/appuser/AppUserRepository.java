@@ -7,11 +7,15 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AppUserRepository extends CrudRepository<AppUser, Long> {
 
-  List<AppUser> findAllByNameContains(String name);
+  boolean existsByUsernameEquals(String username);
+
+  AppUser findAppUserByUsernameEquals(String username);
+
+  List<AppUser> findAllByFullNameContains(String fullName);
 
   List<AppUser> findAllByRole(String role);
 
-  AppUser findByNameIgnoreCase(String username);
+  AppUser findByUsernameIgnoreCase(String username);
 
   List<AppUser> findAllByQualificationContains(String qualification);
 }

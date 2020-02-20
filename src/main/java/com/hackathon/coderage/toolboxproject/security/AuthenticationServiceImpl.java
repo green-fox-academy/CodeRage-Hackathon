@@ -1,5 +1,6 @@
 package com.hackathon.coderage.toolboxproject.security;
 
+import com.hackathon.coderage.toolboxproject.dto.LoginRequestDTO;
 import com.hackathon.coderage.toolboxproject.security.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
