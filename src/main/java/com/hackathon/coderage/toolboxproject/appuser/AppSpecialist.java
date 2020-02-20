@@ -11,12 +11,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AppSpecialist extends AppUser {
 
-  private String qualification;
   private int hourlyWage = 0;
 
-  public AppSpecialist(String name, String role, String password, String qualification, int hourlyWage) {
-    super(name, role, password);
-    this.qualification = qualification;
+  public AppSpecialist(String name, String password, String qualification, int hourlyWage) {
+    super(name, "Employee", password, qualification);
     this.hourlyWage = hourlyWage;
   }
 }
