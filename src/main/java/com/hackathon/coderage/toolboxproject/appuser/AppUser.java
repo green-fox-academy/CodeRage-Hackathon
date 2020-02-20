@@ -42,9 +42,6 @@ public abstract class AppUser {
   @LazyCollection(LazyCollectionOption.FALSE)
   private List<Job> orders = new ArrayList<>();
 
-  public AppUser(String name, String role, String qualification) {
-    this.name = name;
-    this.role = role;
   public AppUser(String username, String password, String fullName, String qualification) {
     this.username = username;
     this.password = password;
