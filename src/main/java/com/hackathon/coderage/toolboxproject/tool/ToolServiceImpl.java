@@ -23,7 +23,7 @@ public class ToolServiceImpl implements ToolService {
 
   @Override
   public Tool addTool(ToolRequestDTO requestDTO) throws MissingParameterException {
-    if (requestDTO == null || !requestDTO.getName().isBlank()) {
+    if (requestDTO == null || requestDTO.getName().isBlank()) {
       throw new MissingParameterException("Missing parameters!");
     }
     return this.toolRepository.save(new Tool(requestDTO.getName(), requestDTO.getHourlyPrice()));
