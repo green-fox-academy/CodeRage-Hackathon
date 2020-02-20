@@ -28,7 +28,7 @@ pipeline {
     }
     stage('Deploy to AWS') {
       steps {
-        withAWS(credentials:'malachite4', region: 'eu-central-1') {
+        withAWS(credentials:'malachite2', region: 'eu-central-1') {
           sh 'aws s3 cp ./Dockerrun.aws.json \
           s3://$S3_BUCKET/$BUILD_ID/Dockerrun.aws.json'
           sh 'aws elasticbeanstalk create-application-version \
