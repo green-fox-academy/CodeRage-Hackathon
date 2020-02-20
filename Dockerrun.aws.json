@@ -1,0 +1,12 @@
+{
+  "AWSEBDockerrunVersion": "2",
+  "Image": {
+    "Name": "orsilarssen/coderage2020:latest"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "3000",
+      "hostPort": "80"
+    }
+  ]
+}
