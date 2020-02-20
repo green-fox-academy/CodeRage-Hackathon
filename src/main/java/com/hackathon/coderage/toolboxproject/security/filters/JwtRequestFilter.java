@@ -22,13 +22,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-  // region Fields
   private CodeRageUserDetailsService codeRageUserDetailsService;
   private JwtUtil jwtUtil;
-  // endregion Fields
 
-
-  // region Constructors
   @Autowired
   public JwtRequestFilter(
       CodeRageUserDetailsService codeRageUserDetailsService,
@@ -36,8 +32,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     this.codeRageUserDetailsService = codeRageUserDetailsService;
     this.jwtUtil = jwtUtil;
   }
-  // endregion Constructors
-
 
   @Override
   protected void doFilterInternal(
