@@ -17,13 +17,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  // region Fields
   private UserDetailsService codeRageUserDetailsService;
   private JwtRequestFilter jwtRequestFilter;
-  // endregion Fields
 
-
-  // region Constructors
   @Autowired
   public WebSecurityConfig(
       CodeRageUserDetailsService codeRageUserDetailsService,
@@ -31,8 +27,6 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     this.codeRageUserDetailsService = codeRageUserDetailsService;
     this.jwtRequestFilter = jwtRequestFilter;
   }
-  // endregion Constructors
-
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

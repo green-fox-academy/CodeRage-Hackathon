@@ -14,16 +14,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtUtil {
 
-  // region Fields
   public static final String AUTHORIZATION_HEADER = "Authorization";
   public static final String TOKEN_BEARER = "Bearer ";
 
   private static final String SECRET_KEY = "SuperSecureSuperSecretSuperKey";
   private static final long EXPIRATION_TIME = 3600000;
-  // endregion Fields
 
-
-  // region Extractions
   public String extractUsername(String token) {
     return this.extractClaim(token, Claims::getSubject);
   }
@@ -39,10 +35,7 @@ public class JwtUtil {
   private Claims extractAllClaims(String token) {
     return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
   }
-  // endregion Extractions
 
-
-  // region Validation
   private Boolean isTokenExpired(String token) {
     return this.extractExpiration(token).before(new Date());
   }
@@ -51,10 +44,7 @@ public class JwtUtil {
     final String username = extractUsername(token);
     return (username.equals(userDetails.getUsername()) && !this.isTokenExpired(token));
   }
-  // endregion Validation
 
-
-  // region Generation
   public String generateToken(UserDetails userDetails) {
     HashMap<String, Object> claims = new HashMap<>();
     String role = userDetails.getAuthorities().stream().findFirst().toString();
@@ -71,5 +61,4 @@ public class JwtUtil {
         .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
         .compact();
   }
-  // endregion Generation
 }

@@ -15,7 +15,5 @@ public interface AppUserRepository extends CrudRepository<AppUser, Long> {
 
   List<AppUser> findAllByRole(String role);
 
-  AppUser findByUsernameIgnoreCase(String username);
-
   List<AppUser> findAllByQualificationContains(String qualification);
 }

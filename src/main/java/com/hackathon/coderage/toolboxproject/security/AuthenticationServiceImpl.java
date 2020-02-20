@@ -12,11 +12,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
 
-  // region Fields
   private AuthenticationManager authenticationManager;
   private JwtUtil jwtTokenUtil;
   private CodeRageUserDetailsService userDetailsService;
-  // endregion Fields
 
   @Autowired
   public AuthenticationServiceImpl(

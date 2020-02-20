@@ -16,9 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CodeRageUserDetailsService implements UserDetailsService {
 
-  // region Fields
   private AppUserRepository appUserRepository;
-  // endregion Fields
 
   @Autowired
   public CodeRageUserDetailsService(
@@ -29,7 +27,7 @@ public class CodeRageUserDetailsService implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String username)
       throws UsernameNotFoundException {
-    AppUser appUser = appUserRepository.findByUsernameIgnoreCase(username);
+    AppUser appUser = appUserRepository.findAppUserByUsernameEquals(username);
     List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
     grantedAuthorities.add(new SimpleGrantedAuthority(appUser.getRole()));
     return new User(
