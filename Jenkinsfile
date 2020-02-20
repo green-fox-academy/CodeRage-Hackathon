@@ -2,24 +2,25 @@ pipeline {
   agent any
   environment {
     registry = "orsilarssen/coderage2020"
-    registryCredential = 'orsilarssen'
+    registryCredential = 'docOL'
     dockerImage = ''
     ENV_NAME = "CoderageHackathon-env"
     S3_BUCKET = "elasticbeanstalk-eu-central-1-124429370407"
     APP_NAME = 'CodeRage-Hackathon'
   }
-   stages {
+  stages {
     stage('Gradle Build') {
       steps {
         sh './gradlew build --rerun-tasks'
       }
     }
     stage('Deploy docker image') {
+      when{
+          branch 'develop'
+      }
       steps {
         script {
-          dockerImage = docker.build registry + ":latest"
-          docker.withRegistry( '', registryCredential )
-          dockerImage.push()
+          dockerImage = docker.build registry + ":dev-latest"
         }
         script {
           docker.withRegistry( '', registryCredential ) {
@@ -29,6 +30,9 @@ pipeline {
       }
     }
     stage('Deploy to AWS') {
+      when{
+          branch 'develop'
+      }
       steps {
         withAWS(credentials:'malachite2', region: 'eu-central-1') {
           sh 'aws s3 cp ./Dockerrun.aws.json \
