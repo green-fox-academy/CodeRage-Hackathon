@@ -21,7 +21,7 @@ public class JobResponseDTO extends JobsResponseDTO {
   public JobResponseDTO(Job job) {
     this.id = job.getId();
     this.customerName = job.getCustomer().getFullName();
-    this.type = job.getType();
+    this.type = job.getClass().getSimpleName();
     this.status = job.getStatus();
     this.price = job.getPrice();
   }
