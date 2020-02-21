@@ -66,7 +66,7 @@ public class ToolController {
     try {
       this.toolService.removeToolById(toolId);
     } catch (IncorrectIdException e) {
-      return ResponseEntity.status(HttpStatus.OK)
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
           .body(new ErrorResponseDTO("error", e.getMessage()));
     }
     return ResponseEntity.ok().build();
