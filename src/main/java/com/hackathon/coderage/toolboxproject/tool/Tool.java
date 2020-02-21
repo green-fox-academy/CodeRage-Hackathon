@@ -28,14 +28,14 @@ public class Tool {
   private long id;
 
   private String name;
-  private int hourlyPrice;
+  private int dailyPrice;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "tool")
   @LazyCollection(LazyCollectionOption.FALSE)
   private List<Job> jobs = new ArrayList<>();
 
-  public Tool(String name, int hourlyPrice) {
+  public Tool(String name, int dailyPrice) {
     this.name = name;
-    this.hourlyPrice = hourlyPrice;
+    this.dailyPrice = dailyPrice;
   }
 }

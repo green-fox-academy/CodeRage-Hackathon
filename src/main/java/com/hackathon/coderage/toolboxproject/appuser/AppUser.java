@@ -32,7 +32,7 @@ public class AppUser {
   private String fullName;
   private String role;
   private String qualification;
-  private int hourlyWage;
+  private int dailyWage;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
   @LazyCollection(LazyCollectionOption.FALSE)

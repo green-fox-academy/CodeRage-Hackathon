@@ -49,7 +49,7 @@ public abstract class Job {
   public Job(AppUser employee, Tool tool, JobRequestDTO request) {
     this.employee = employee;
     this.tool = tool;
-    this.price = employee.getHourlyWage() + tool.getHourlyPrice();
+    this.price = employee.getDailyWage() + tool.getDailyPrice();
     this.date = request.getDate();
   }
 }

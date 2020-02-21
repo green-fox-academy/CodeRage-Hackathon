@@ -21,6 +21,5 @@ public enum JobTypes {
     }
   };
 
-  // employees and tools has to be selected from DB, everything else TODO: could come from the DTO
   public abstract Job create(AppUser employees, Tool tools, JobRequestDTO request);
 }
