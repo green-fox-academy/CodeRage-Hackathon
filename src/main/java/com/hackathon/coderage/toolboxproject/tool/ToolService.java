@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface ToolService {
 
-  List<Tool> findAvailable(long startTime, long endTime, String type, int number);
-
   Tool addTool(ToolRequestDTO requestDTO) throws MissingParameterException;
 
   void removeToolById(long id);
