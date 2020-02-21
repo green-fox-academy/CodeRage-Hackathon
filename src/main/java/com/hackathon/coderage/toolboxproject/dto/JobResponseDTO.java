@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class JobResponseDTO extends JobsResponseDTO {
+public class JobResponseDTO extends ResponseDTO {
 
   private long id;
   private String customerName;

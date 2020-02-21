@@ -61,7 +61,7 @@ public class AppUserController {
       return ResponseEntity.status(HttpStatus.OK)
           .body(new UserResponseDTO(this.appUserService.changeUserRole(requestDTO)));
     } catch (MissingParameterException e) {
-      return ResponseEntity.status(HttpStatus.OK)
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
           .body(new ErrorResponseDTO("error", e.getMessage()));
     }
   }
@@ -71,7 +71,7 @@ public class AppUserController {
     try {
       this.appUserService.deleteUserById(userId);
     } catch (IncorrectIdException e) {
-      return ResponseEntity.status(HttpStatus.OK)
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
           .body(new ErrorResponseDTO("error", e.getMessage()));
     }
     return ResponseEntity.status(HttpStatus.OK).build();
