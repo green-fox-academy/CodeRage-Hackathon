@@ -23,7 +23,7 @@ public interface AppUserService {
 
   void deleteUserById(long id);
 
-  List<AppUser> findAll();
+  List<AppUser> findAllEmployees();
 
   AppUser findByUsername(String username);
 }
