@@ -5,6 +5,7 @@ import com.hackathon.coderage.toolboxproject.dto.LoginResponseDTO;
 import com.hackathon.coderage.toolboxproject.dto.ModificationRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.RegisterRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.RegisterResponseDTO;
+import com.hackathon.coderage.toolboxproject.exceptions.IncorrectIdException;
 import com.hackathon.coderage.toolboxproject.exceptions.MissingParameterException;
 import com.hackathon.coderage.toolboxproject.exceptions.UsernameAlreadyTakenException;
 import java.util.List;
@@ -21,7 +22,7 @@ public interface AppUserService {
 
   AppUser changeUserRole(ModificationRequestDTO requestDTO) throws MissingParameterException;
 
-  void deleteUserById(long id);
+  void deleteUserById(long id) throws IncorrectIdException;
 
   List<AppUser> findAllEmployees();
 

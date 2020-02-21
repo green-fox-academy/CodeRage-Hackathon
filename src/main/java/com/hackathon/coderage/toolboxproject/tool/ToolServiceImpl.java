@@ -27,7 +27,7 @@ public class ToolServiceImpl implements ToolService {
 
   @Override
   public void removeToolById(long id) throws IncorrectIdException {
-    if (this.toolRepository.count() >= id) {
+    if (this.toolRepository.count() > id) {
       throw new IncorrectIdException();
     }
     this.toolRepository.deleteById(id);

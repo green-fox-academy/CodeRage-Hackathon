@@ -6,6 +6,7 @@ import com.hackathon.coderage.toolboxproject.dto.ModificationRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.RegisterRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.ResponseDTO;
 import com.hackathon.coderage.toolboxproject.dto.UserResponseDTO;
+import com.hackathon.coderage.toolboxproject.exceptions.IncorrectIdException;
 import com.hackathon.coderage.toolboxproject.exceptions.MissingParameterException;
 import com.hackathon.coderage.toolboxproject.exceptions.UsernameAlreadyTakenException;
 import org.springframework.http.HttpStatus;
@@ -67,7 +68,12 @@ public class AppUserController {
 
   @DeleteMapping(value = "/user/{id}")
   public ResponseEntity deleteUserById(@PathVariable(name = "id") long userId) {
-    this.appUserService.deleteUserById(userId);
+    try {
+      this.appUserService.deleteUserById(userId);
+    } catch (IncorrectIdException e) {
+      return ResponseEntity.status(HttpStatus.OK)
+          .body(new ErrorResponseDTO("error", e.getMessage()));
+    }
     return ResponseEntity.status(HttpStatus.OK).build();
   }
 }
