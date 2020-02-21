@@ -7,10 +7,10 @@ import com.hackathon.coderage.toolboxproject.tool.Tool;
 
 public class JobFactory {
 
-  public static Job orderJob(String type, AppUser employees, Tool tools)
+  public static Job orderJob(String type, AppUser employee, Tool tool)
       throws IncorrectJobTypeException {
     try {
-      return JobTypes.valueOf(type.toUpperCase()).create(employees, tools);
+      return JobTypes.valueOf(type.toUpperCase()).create(employee, tool);
     } catch (IllegalArgumentException e) {
       throw new IncorrectJobTypeException();
     }

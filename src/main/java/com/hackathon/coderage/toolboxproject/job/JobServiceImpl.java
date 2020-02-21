@@ -2,8 +2,14 @@ package com.hackathon.coderage.toolboxproject.job;
 
 import com.hackathon.coderage.toolboxproject.appuser.AppUser;
 import com.hackathon.coderage.toolboxproject.appuser.AppUserService;
+import com.hackathon.coderage.toolboxproject.dto.JobRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.JobsResponseDTO;
+import com.hackathon.coderage.toolboxproject.exceptions.IncorrectJobTypeException;
+import com.hackathon.coderage.toolboxproject.exceptions.NoEmployeeAvailableException;
+import com.hackathon.coderage.toolboxproject.exceptions.NoToolAvailableException;
+import com.hackathon.coderage.toolboxproject.tool.Tool;
 import com.hackathon.coderage.toolboxproject.tool.ToolService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +46,34 @@ public class JobServiceImpl implements JobService {
   public JobsResponseDTO jobsByUser(String username) {
     AppUser appUser = this.appUserService.findByUsername(username);
     return new JobsResponseDTO(appUser.getJobs());
+  }
+
+  @Override
+  public AppUser findAvailableEmployeesOnDate(long date) throws NoEmployeeAvailableException {
+    List<AppUser> employees = new ArrayList<>(this.appUserService.findAllEmployees());
+    this.jobRepository.findAllByDate(date).forEach(job -> employees.remove(job.getEmployee()));
+    if (employees.size() == 0) {
+      throw new NoEmployeeAvailableException();
+    }
+    return employees.get(0);
+  }
+
+  @Override
+  public Tool findAvailableToolsOnDate(long date) throws NoToolAvailableException {
+    List<Tool> tools = new ArrayList<>(this.toolService.findAll());
+    this.jobRepository.findAllByDate(date).forEach(job -> tools.remove(job.getTool()));
+    if (tools.size() == 0) {
+      throw new NoToolAvailableException();
+    }
+    return tools.get(0);
+  }
+
+  @Override
+  public Job createJob(JobRequestDTO request, String customerName)
+      throws NoEmployeeAvailableException, NoToolAvailableException, IncorrectJobTypeException {
+    // TODO date validation
+    Tool tool = this.findAvailableToolsOnDate(request.getDate());
+    AppUser employee = this.findAvailableEmployeesOnDate(request.getDate());
+    return JobFactory.orderJob(request.getType(), employee, tool);
   }
 }
