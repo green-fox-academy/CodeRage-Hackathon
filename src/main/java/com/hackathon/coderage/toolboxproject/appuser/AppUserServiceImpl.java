@@ -88,7 +88,7 @@ public class AppUserServiceImpl implements AppUserService {
 
   @Override
   public void deleteUserById(long id) throws IncorrectIdException {
-    if (this.appUserRepository.count() > id) {
+    if (this.appUserRepository.count() < id) {
       throw new IncorrectIdException();
     }
     this.appUserRepository.deleteById(id);
