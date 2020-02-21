@@ -9,13 +9,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class JobResponseDTO {
+public class JobResponseDTO extends JobsResponseDTO {
 
   private long id;
   private String customerName;
   private String type;
-  private long startTime;
-  private long endTime;
   private String status;
   private long price;
   private Date createdAt;
