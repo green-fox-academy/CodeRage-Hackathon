@@ -88,8 +88,8 @@ public class AppUserServiceImpl implements AppUserService {
   }
 
   @Override
-  public List<AppUser> findAll() {
-    return this.appUserRepository.findAll();
+  public List<AppUser> findAllEmployees() {
+    return this.appUserRepository.findAllByRole("Employee");
   }
 
   @Override
