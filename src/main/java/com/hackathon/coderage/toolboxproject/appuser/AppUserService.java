@@ -7,6 +7,7 @@ import com.hackathon.coderage.toolboxproject.dto.RegisterRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.RegisterResponseDTO;
 import com.hackathon.coderage.toolboxproject.exceptions.MissingParameterException;
 import com.hackathon.coderage.toolboxproject.exceptions.UsernameAlreadyTakenException;
+import java.util.List;
 import org.springframework.security.authentication.BadCredentialsException;
 
 public interface AppUserService {
@@ -21,4 +22,8 @@ public interface AppUserService {
   AppUser changeUserRole(ModificationRequestDTO requestDTO) throws MissingParameterException;
 
   void deleteUserById(long id);
+
+  List<AppUser> findAll();
+
+  AppUser findByUsername(String username);
 }

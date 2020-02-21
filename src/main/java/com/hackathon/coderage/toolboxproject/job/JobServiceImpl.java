@@ -1,8 +1,9 @@
 package com.hackathon.coderage.toolboxproject.job;
 
 import com.hackathon.coderage.toolboxproject.appuser.AppUser;
-import com.hackathon.coderage.toolboxproject.appuser.AppUserRepository;
+import com.hackathon.coderage.toolboxproject.appuser.AppUserService;
 import com.hackathon.coderage.toolboxproject.dto.JobsResponseDTO;
+import com.hackathon.coderage.toolboxproject.tool.ToolService;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -10,12 +11,14 @@ import org.springframework.stereotype.Service;
 public class JobServiceImpl implements JobService {
 
   private JobRepository jobRepository;
-  private AppUserRepository appUserRepository;
+  private AppUserService appUserService;
+  private ToolService toolService;
 
   public JobServiceImpl(JobRepository jobRepository,
-      AppUserRepository appUserRepository) {
+      AppUserService appUserService, ToolService toolService) {
     this.jobRepository = jobRepository;
-    this.appUserRepository = appUserRepository;
+    this.appUserService = appUserService;
+    this.toolService = toolService;
   }
 
   @Override
@@ -35,7 +38,7 @@ public class JobServiceImpl implements JobService {
 
   @Override
   public JobsResponseDTO jobsByUser(String username) {
-    AppUser appUser = this.appUserRepository.findAppUserByUsernameEquals(username);
+    AppUser appUser = this.appUserService.findByUsername(username);
     return new JobsResponseDTO(appUser.getJobs());
   }
 }

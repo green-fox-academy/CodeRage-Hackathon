@@ -8,6 +8,7 @@ import com.hackathon.coderage.toolboxproject.dto.RegisterResponseDTO;
 import com.hackathon.coderage.toolboxproject.exceptions.MissingParameterException;
 import com.hackathon.coderage.toolboxproject.exceptions.UsernameAlreadyTakenException;
 import com.hackathon.coderage.toolboxproject.security.AuthenticationService;
+import java.util.List;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -84,5 +85,15 @@ public class AppUserServiceImpl implements AppUserService {
   @Override
   public void deleteUserById(long id) {
     this.appUserRepository.deleteById(id);
+  }
+
+  @Override
+  public List<AppUser> findAll() {
+    return this.appUserRepository.findAll();
+  }
+
+  @Override
+  public AppUser findByUsername(String username) {
+    return this.appUserRepository.findByUsername(username);
   }
 }

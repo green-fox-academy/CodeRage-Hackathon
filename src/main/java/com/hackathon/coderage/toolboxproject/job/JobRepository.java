@@ -10,4 +10,6 @@ public interface JobRepository extends CrudRepository<Job, Long> {
   List<Job> findAll();
 
   List<Job> findAllByCustomerUsername(String username);
+
+  List<Job> findAllByDate(long date);
 }
