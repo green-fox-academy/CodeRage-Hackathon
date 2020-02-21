@@ -13,5 +13,4 @@ public class LoginRequestDTO extends RequestDTO {
 
   private String username;
   private String password;
-
 }
