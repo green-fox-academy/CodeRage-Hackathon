@@ -21,7 +21,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class RegisterLoginIntegrationTest {
 
@@ -37,7 +37,7 @@ public class RegisterLoginIntegrationTest {
     RegisterRequestDTO registerRequestDTO = new RegisterRequestDTO(
         "name", "pw", "fuuuuullNaaame", "qualific");
 
-    String registerURL = "http://localhost:8080/register";
+    String registerURL = "http://localhost:8081/register";
     ResponseEntity<RegisterResponseDTO> registerResponse = this.testRestTemplate
         .postForEntity(
             registerURL,
@@ -56,7 +56,7 @@ public class RegisterLoginIntegrationTest {
     LoginRequestDTO loginRequestDTO = new LoginRequestDTO(
         "name", "pw");
 
-    String loginURL = "http://localhost:8080/login";
+    String loginURL = "http://localhost:8081/login";
     ResponseEntity<LoginResponseDTO> loginResponse = this.testRestTemplate
         .postForEntity(
             loginURL,
