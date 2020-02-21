@@ -5,6 +5,7 @@ import com.hackathon.coderage.toolboxproject.dto.LoginResponseDTO;
 import com.hackathon.coderage.toolboxproject.dto.ModificationRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.RegisterRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.RegisterResponseDTO;
+import com.hackathon.coderage.toolboxproject.exceptions.IncorrectIdException;
 import com.hackathon.coderage.toolboxproject.exceptions.MissingParameterException;
 import com.hackathon.coderage.toolboxproject.exceptions.UsernameAlreadyTakenException;
 import com.hackathon.coderage.toolboxproject.security.AuthenticationService;
@@ -83,7 +84,10 @@ public class AppUserServiceImpl implements AppUserService {
   }
 
   @Override
-  public void deleteUserById(long id) {
+  public void deleteUserById(long id) throws IncorrectIdException {
+    if (this.appUserRepository.count() > id) {
+      throw new IncorrectIdException();
+    }
     this.appUserRepository.deleteById(id);
   }
 
