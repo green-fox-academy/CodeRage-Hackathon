@@ -3,7 +3,6 @@ package com.hackathon.coderage.toolboxproject.job.jobtypes;
 import com.hackathon.coderage.toolboxproject.appuser.AppUser;
 import com.hackathon.coderage.toolboxproject.job.Job;
 import com.hackathon.coderage.toolboxproject.tool.Tool;
-import java.util.List;
 import javax.persistence.Entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Construction extends Job {
 
-  public Construction(List<AppUser> employees, List<Tool> tools) {
-    super(employees, tools);
+  public Construction(AppUser employee, Tool tool) {
+    super(employee, tool);
   }
 }

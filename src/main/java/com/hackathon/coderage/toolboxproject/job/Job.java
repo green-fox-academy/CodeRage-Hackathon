@@ -2,14 +2,12 @@ package com.hackathon.coderage.toolboxproject.job;
 
 import com.hackathon.coderage.toolboxproject.appuser.AppUser;
 import com.hackathon.coderage.toolboxproject.tool.Tool;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.Calendar;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -28,26 +26,28 @@ public abstract class Job {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  @ManyToMany(mappedBy = "jobs")
-  private List<AppUser> employees = new ArrayList<>();
-
-  @ManyToMany(mappedBy = "jobs")
-  private List<Tool> tools = new ArrayList<>();
+  @ManyToOne
+  @JoinColumn(name = "employee_id", referencedColumnName = "id")
+  private AppUser employee;
 
   @ManyToOne
+  @JoinColumn(name = "tool_id", referencedColumnName = "id")
+  private Tool tool;
+
+  @ManyToOne
+  @JoinColumn(name = "customer_id", referencedColumnName = "id")
   private AppUser customer;
 
   private String type;
-  private long startTime;
-  private long endTime;
   private String status;
   private long price;
+  private long date;
 
   @CreatedDate
-  private Date createdAt = new Date();
+  private Calendar createdAt = Calendar.getInstance();
 
-  public Job(List<AppUser> employees, List<Tool> tools) {
-    this.employees = employees;
-    this.tools = tools;
+  public Job(AppUser employee, Tool tool) {
+    this.employee = employee;
+    this.tool = tool;
   }
 }

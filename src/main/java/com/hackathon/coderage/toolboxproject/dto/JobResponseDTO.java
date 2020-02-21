@@ -24,10 +24,7 @@ public class JobResponseDTO {
     this.id = job.getId();
     this.customerName = job.getCustomer().getFullName();
     this.type = job.getType();
-    this.startTime = job.getStartTime();
-    this.endTime = job.getEndTime();
     this.status = job.getStatus();
     this.price = job.getPrice();
-    this.createdAt = job.getCreatedAt();
   }
 }
