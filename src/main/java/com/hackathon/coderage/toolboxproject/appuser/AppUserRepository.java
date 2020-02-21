@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AppUserRepository extends CrudRepository<AppUser, Long> {
 
+  AppUser findAppUserByUsernameEquals(String username);
+  
   boolean existsByUsernameEquals(String username);
 
   AppUser findByUsername(String username);

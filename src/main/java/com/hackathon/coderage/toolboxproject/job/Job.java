@@ -2,7 +2,7 @@ package com.hackathon.coderage.toolboxproject.job;
 
 import com.hackathon.coderage.toolboxproject.appuser.AppUser;
 import com.hackathon.coderage.toolboxproject.tool.Tool;
-import java.util.Calendar;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -44,7 +44,7 @@ public abstract class Job {
   private long date;
 
   @CreatedDate
-  private Calendar createdAt = Calendar.getInstance();
+  private Date createdAt = new Date();
 
   public Job(AppUser employee, Tool tool) {
     this.employee = employee;
