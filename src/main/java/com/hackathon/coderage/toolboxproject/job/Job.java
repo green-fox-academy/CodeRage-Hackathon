@@ -39,7 +39,7 @@ public abstract class Job {
   @JoinColumn(name = "customer_id", referencedColumnName = "id")
   private AppUser customer;
 
-  private String status;
+  private String status = "Ordered";
   private long price;
   private long date;
 
