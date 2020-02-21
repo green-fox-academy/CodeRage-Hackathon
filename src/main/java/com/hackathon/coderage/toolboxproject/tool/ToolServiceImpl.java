@@ -17,11 +17,6 @@ public class ToolServiceImpl implements ToolService {
   }
 
   @Override
-  public List<Tool> findAvailable(long startTime, long endTime, String type, int number) {
-    return this.toolRepository.findAvailable(startTime, endTime, type, number);
-  }
-
-  @Override
   public Tool addTool(ToolRequestDTO requestDTO) throws MissingParameterException {
     if (requestDTO == null || requestDTO.getName().isBlank()) {
       throw new MissingParameterException("Missing parameters!");
