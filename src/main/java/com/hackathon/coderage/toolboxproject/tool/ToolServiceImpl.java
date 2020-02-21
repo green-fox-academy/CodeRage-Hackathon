@@ -22,12 +22,12 @@ public class ToolServiceImpl implements ToolService {
     if (requestDTO == null || requestDTO.getName().isBlank()) {
       throw new MissingParameterException("Missing parameters!");
     }
-    return this.toolRepository.save(new Tool(requestDTO.getName(), requestDTO.getHourlyPrice()));
+    return this.toolRepository.save(new Tool(requestDTO.getName(), requestDTO.getDailyPrice()));
   }
 
   @Override
   public void removeToolById(long id) throws IncorrectIdException {
-    if (this.toolRepository.count() < id) {
+    if (!this.toolRepository.existsById(id)) {
       throw new IncorrectIdException();
     }
     this.toolRepository.deleteById(id);

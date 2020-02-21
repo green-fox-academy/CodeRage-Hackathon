@@ -12,12 +12,12 @@ import lombok.NoArgsConstructor;
 public class ToolResponseDTO extends ResponseDTO {
 
   private String name;
-  private int hourlyPrice;
+  private int dailyPrice;
   private List<JobAttributeResponseDTO> jobs = new ArrayList<>();
 
   public ToolResponseDTO(Tool tool) {
     this.name = tool.getName();
-    this.hourlyPrice = tool.getHourlyPrice();
+    this.dailyPrice = tool.getDailyPrice();
     this.jobs = tool.getJobs().stream()
         .map(JobAttributeResponseDTO::new)
         .collect(Collectors.toList());
