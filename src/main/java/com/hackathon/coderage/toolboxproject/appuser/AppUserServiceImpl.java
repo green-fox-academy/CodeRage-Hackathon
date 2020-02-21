@@ -61,7 +61,10 @@ public class AppUserServiceImpl implements AppUserService {
 
   public void validateRegistration(RegisterRequestDTO registerRequestDTO)
       throws MissingParameterException, UsernameAlreadyTakenException {
-    if (registerRequestDTO.getUsername().isBlank() || registerRequestDTO.getPassword().isBlank()) {
+    if (registerRequestDTO == null) {
+      throw new MissingParameterException("Request is missing!");
+    } else if (registerRequestDTO.getUsername().isBlank()
+        || registerRequestDTO.getPassword().isBlank()) {
       throw new MissingParameterException("Username or password is missing or invalid!");
     } else if (registerRequestDTO.getFullName().isBlank()) {
       throw new MissingParameterException("Full name is missing or invalid!");
