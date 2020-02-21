@@ -48,8 +48,7 @@ public class JobServiceImpl implements JobService {
     return new JobsResponseDTO(appUser.getJobs());
   }
 
-  @Override
-  public AppUser findAvailableEmployeesOnDate(long date) throws NoEmployeeAvailableException {
+  private AppUser findAvailableEmployeesOnDate(long date) throws NoEmployeeAvailableException {
     List<AppUser> employees = new ArrayList<>(this.appUserService.findAllEmployees());
     this.jobRepository.findAllByDate(date).forEach(job -> employees.remove(job.getEmployee()));
     if (employees.size() == 0) {
@@ -58,8 +57,7 @@ public class JobServiceImpl implements JobService {
     return employees.get(0);
   }
 
-  @Override
-  public Tool findAvailableToolsOnDate(long date) throws NoToolAvailableException {
+  private Tool findAvailableToolsOnDate(long date) throws NoToolAvailableException {
     List<Tool> tools = new ArrayList<>(this.toolService.findAll());
     this.jobRepository.findAllByDate(date).forEach(job -> tools.remove(job.getTool()));
     if (tools.size() == 0) {
@@ -72,8 +70,11 @@ public class JobServiceImpl implements JobService {
   public Job createJob(JobRequestDTO request, String customerName)
       throws NoEmployeeAvailableException, NoToolAvailableException, IncorrectJobTypeException {
     // TODO date validation
+    AppUser customer = this.appUserService.findByUsername(customerName);
     Tool tool = this.findAvailableToolsOnDate(request.getDate());
     AppUser employee = this.findAvailableEmployeesOnDate(request.getDate());
-    return JobFactory.orderJob(request.getType(), employee, tool);
+    Job job = JobFactory.orderJob(request.getType(), employee, tool, request);
+    job.setCustomer(customer);
+    return this.jobRepository.save(job);
   }
 }

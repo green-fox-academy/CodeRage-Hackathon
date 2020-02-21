@@ -1,6 +1,7 @@
 package com.hackathon.coderage.toolboxproject.job;
 
 import com.hackathon.coderage.toolboxproject.appuser.AppUser;
+import com.hackathon.coderage.toolboxproject.dto.JobRequestDTO;
 import com.hackathon.coderage.toolboxproject.tool.Tool;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -38,7 +39,6 @@ public abstract class Job {
   @JoinColumn(name = "customer_id", referencedColumnName = "id")
   private AppUser customer;
 
-  private String type;
   private String status;
   private long price;
   private long date;
@@ -46,8 +46,10 @@ public abstract class Job {
   @CreatedDate
   private Date createdAt = new Date();
 
-  public Job(AppUser employee, Tool tool) {
+  public Job(AppUser employee, Tool tool, JobRequestDTO request) {
     this.employee = employee;
     this.tool = tool;
+    this.price = employee.getHourlyWage() + tool.getHourlyPrice();
+    this.date = request.getDate();
   }
 }

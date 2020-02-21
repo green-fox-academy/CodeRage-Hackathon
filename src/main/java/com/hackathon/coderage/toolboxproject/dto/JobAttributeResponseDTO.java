@@ -14,7 +14,7 @@ public class JobAttributeResponseDTO extends ResponseDTO {
 
   public JobAttributeResponseDTO(Job job) {
     this.customer = job.getCustomer().getFullName();
-    this.type = job.getType();
+    this.type = job.getClass().getSimpleName();
     this.status = job.getStatus();
   }
 }
