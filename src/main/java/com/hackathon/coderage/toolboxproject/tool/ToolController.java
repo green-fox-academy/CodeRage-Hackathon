@@ -5,6 +5,7 @@ import com.hackathon.coderage.toolboxproject.dto.ResponseDTO;
 import com.hackathon.coderage.toolboxproject.dto.ToolRequestDTO;
 import com.hackathon.coderage.toolboxproject.dto.ToolResponseDTO;
 import com.hackathon.coderage.toolboxproject.dto.ToolsResponseDTO;
+import com.hackathon.coderage.toolboxproject.exceptions.IncorrectIdException;
 import com.hackathon.coderage.toolboxproject.exceptions.MissingParameterException;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,12 @@ public class ToolController {
 
   @DeleteMapping("/tool/{id}")
   public ResponseEntity deleteTool(@PathVariable(name = "id") long toolId) {
-    this.toolService.removeToolById(toolId);
+    try {
+      this.toolService.removeToolById(toolId);
+    } catch (IncorrectIdException e) {
+      return ResponseEntity.status(HttpStatus.OK)
+          .body(new ErrorResponseDTO("error", e.getMessage()));
+    }
     return ResponseEntity.ok().build();
   }
 }

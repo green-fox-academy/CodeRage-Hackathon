@@ -1,6 +1,7 @@
 package com.hackathon.coderage.toolboxproject.tool;
 
 import com.hackathon.coderage.toolboxproject.dto.ToolRequestDTO;
+import com.hackathon.coderage.toolboxproject.exceptions.IncorrectIdException;
 import com.hackathon.coderage.toolboxproject.exceptions.MissingParameterException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,10 @@ public class ToolServiceImpl implements ToolService {
   }
 
   @Override
-  public void removeToolById(long id) {
+  public void removeToolById(long id) throws IncorrectIdException {
+    if (this.toolRepository.count() >= id) {
+      throw new IncorrectIdException();
+    }
     this.toolRepository.deleteById(id);
   }
 
