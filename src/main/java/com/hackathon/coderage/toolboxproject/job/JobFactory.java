@@ -5,13 +5,14 @@ import com.hackathon.coderage.toolboxproject.dto.JobRequestDTO;
 import com.hackathon.coderage.toolboxproject.exceptions.IncorrectJobTypeException;
 import com.hackathon.coderage.toolboxproject.job.jobtypes.JobTypes;
 import com.hackathon.coderage.toolboxproject.tool.Tool;
+import java.util.Set;
 
 public class JobFactory {
 
-  public static Job orderJob(String type, AppUser employee, Tool tool, JobRequestDTO request)
+  public static Job orderJob(String type, Set<AppUser> employees, Tool tool, JobRequestDTO request)
       throws IncorrectJobTypeException {
     try {
-      return JobTypes.valueOf(type.toUpperCase()).create(employee, tool, request);
+      return JobTypes.valueOf(type.toUpperCase()).create(employees, tool, request);
     } catch (IllegalArgumentException e) {
       throw new IncorrectJobTypeException();
     }

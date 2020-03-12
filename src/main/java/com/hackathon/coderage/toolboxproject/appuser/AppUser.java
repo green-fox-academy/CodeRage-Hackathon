@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -34,8 +35,7 @@ public class AppUser {
   private String qualification;
   private int dailyWage;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
-  @LazyCollection(LazyCollectionOption.FALSE)
+  @ManyToMany(mappedBy = "employees")
   private List<Job> jobs = new ArrayList<>();
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
