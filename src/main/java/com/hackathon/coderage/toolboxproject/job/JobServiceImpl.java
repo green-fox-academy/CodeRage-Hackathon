@@ -61,13 +61,15 @@ public class JobServiceImpl implements JobService {
     return new HashSet<>(employees);
   }
 
-  private Tool findAvailableToolsOnDate(long date) throws NoToolAvailableException {
+  private Set<Tool> findAvailableToolsOnDate(long date) throws NoToolAvailableException {
     List<Tool> tools = new ArrayList<>(this.toolService.findAll());
-    this.jobRepository.findAllByDate(date).forEach(job -> tools.remove(job.getTool()));
+    this.jobRepository.findAllByDate(date)
+        .forEach(job -> job.getTools()
+            .forEach(tools::remove));
     if (tools.size() == 0) {
       throw new NoToolAvailableException();
     }
-    return tools.get(0);
+    return new HashSet<>(tools);
   }
 
   @Override
@@ -75,9 +77,9 @@ public class JobServiceImpl implements JobService {
       throws NoEmployeeAvailableException, NoToolAvailableException, IncorrectJobTypeException {
     // TODO date validation
     AppUser customer = this.appUserService.findByUsername(customerName);
-    Tool tool = this.findAvailableToolsOnDate(request.getDate());
-    Set<AppUser> employee = this.findAvailableEmployeesOnDate(request.getDate());
-    Job job = JobFactory.orderJob(request.getType(), employee, tool, request);
+    Set<Tool> tools = this.findAvailableToolsOnDate(request.getDate());
+    Set<AppUser> employees = this.findAvailableEmployeesOnDate(request.getDate());
+    Job job = JobFactory.orderJob(request.getType(), employees, tools, request);
     job.setCustomer(customer);
     return this.jobRepository.save(job);
   }

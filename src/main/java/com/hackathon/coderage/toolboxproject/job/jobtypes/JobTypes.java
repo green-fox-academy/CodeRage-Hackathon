@@ -10,17 +10,17 @@ public enum JobTypes {
 
   CARPENTER {
     @Override
-    public Job create(Set<AppUser> employees, Tool tool, JobRequestDTO request) {
-      return new Carpenter(employees, tool, request);
+    public Job create(Set<AppUser> employees, Set<Tool> tools, JobRequestDTO request) {
+      return new Carpenter(employees, tools, request);
     }
   },
 
   CONSTRUCTION {
     @Override
-    public Job create(Set<AppUser> employees, Tool tools, JobRequestDTO request) {
+    public Job create(Set<AppUser> employees, Set<Tool> tools, JobRequestDTO request) {
       return new Construction(employees, tools, request);
     }
   };
 
-  public abstract Job create(Set<AppUser> employees, Tool tools, JobRequestDTO request);
+  public abstract Job create(Set<AppUser> employees, Set<Tool> tools, JobRequestDTO request);
 }

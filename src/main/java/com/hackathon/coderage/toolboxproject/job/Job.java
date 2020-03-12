@@ -35,7 +35,7 @@ public abstract class Job {
   @ManyToMany(
       fetch = FetchType.EAGER,
       cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinTable(name = "employee_jobs",
+  @JoinTable(name = "employees_jobs",
       joinColumns = @JoinColumn(
           name = "job_id",
           referencedColumnName = "id"),
@@ -44,9 +44,18 @@ public abstract class Job {
           referencedColumnName = "id"))
   private Set<AppUser> employees;
 
-  @ManyToOne
+  @ManyToMany(
+      fetch = FetchType.EAGER,
+      cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @JoinTable(name = "tools_jobs",
+      joinColumns = @JoinColumn(
+          name = "job_id",
+          referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(
+          name = "tool_id",
+          referencedColumnName = "id"))
   @JoinColumn(name = "tool_id", referencedColumnName = "id")
-  private Tool tool;
+  private Set<Tool> tools;
 
   @ManyToOne
   @JoinColumn(name = "customer_id", referencedColumnName = "id")
@@ -59,9 +68,9 @@ public abstract class Job {
   @CreatedDate
   private Date createdAt = new Date();
 
-  public Job(Set<AppUser> employees, Tool tool, JobRequestDTO request) {
+  public Job(Set<AppUser> employees, Set<Tool> tools, JobRequestDTO request) {
     this.employees = employees;
-    this.tool = tool;
+    this.tools = tools;
     this.date = request.getDate();
   }
 }
