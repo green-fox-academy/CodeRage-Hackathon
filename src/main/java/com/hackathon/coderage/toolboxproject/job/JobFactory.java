@@ -9,10 +9,11 @@ import java.util.Set;
 
 public class JobFactory {
 
-  public static Job orderJob(String type, Set<AppUser> employees, Tool tool, JobRequestDTO request)
+  public static Job orderJob(String type, Set<AppUser> employees, Set<Tool> tools,
+      JobRequestDTO request)
       throws IncorrectJobTypeException {
     try {
-      return JobTypes.valueOf(type.toUpperCase()).create(employees, tool, request);
+      return JobTypes.valueOf(type.toUpperCase()).create(employees, tools, request);
     } catch (IllegalArgumentException e) {
       throw new IncorrectJobTypeException();
     }

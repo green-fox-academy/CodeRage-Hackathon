@@ -16,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Carpenter extends Job {
 
-  public Carpenter(Set<AppUser> employees, Tool tool, JobRequestDTO request) {
-    super(employees, tool, request);
+  public Carpenter(Set<AppUser> employees, Set<Tool> tools, JobRequestDTO request) {
+    super(employees, tools, request);
   }
 }
