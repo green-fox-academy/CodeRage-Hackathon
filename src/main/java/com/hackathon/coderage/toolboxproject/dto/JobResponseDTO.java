@@ -1,7 +1,8 @@
 package com.hackathon.coderage.toolboxproject.dto;
 
 import com.hackathon.coderage.toolboxproject.job.Job;
-import java.util.Date;
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +17,8 @@ public class JobResponseDTO extends ResponseDTO {
   private String type;
   private String status;
   private long price;
-  private Date createdAt;
+  private Set<ToolResponseDTO> tools;
+  private Set<UserResponseDTO> employees;
 
   public JobResponseDTO(Job job) {
     this.id = job.getId();
@@ -24,5 +26,13 @@ public class JobResponseDTO extends ResponseDTO {
     this.type = job.getClass().getSimpleName();
     this.status = job.getStatus();
     this.price = job.getPrice();
+    this.tools = job.getTools()
+        .stream()
+        .map(ToolResponseDTO::new)
+        .collect(Collectors.toSet());
+    this.employees = job.getEmployees()
+        .stream()
+        .map(UserResponseDTO::new)
+        .collect(Collectors.toSet());
   }
 }
