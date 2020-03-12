@@ -4,6 +4,7 @@ import com.hackathon.coderage.toolboxproject.appuser.AppUser;
 import com.hackathon.coderage.toolboxproject.dto.JobRequestDTO;
 import com.hackathon.coderage.toolboxproject.job.Job;
 import com.hackathon.coderage.toolboxproject.tool.Tool;
+import java.util.Set;
 import javax.persistence.Entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Carpenter extends Job {
 
-  public Carpenter(AppUser employee, Tool tool, JobRequestDTO request) {
-    super(employee, tool, request);
+  public Carpenter(Set<AppUser> employees, Tool tool, JobRequestDTO request) {
+    super(employees, tool, request);
   }
 }

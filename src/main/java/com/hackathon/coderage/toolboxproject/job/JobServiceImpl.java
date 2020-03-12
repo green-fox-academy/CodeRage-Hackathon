@@ -10,7 +10,9 @@ import com.hackathon.coderage.toolboxproject.exceptions.NoToolAvailableException
 import com.hackathon.coderage.toolboxproject.tool.Tool;
 import com.hackathon.coderage.toolboxproject.tool.ToolService;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -48,13 +50,15 @@ public class JobServiceImpl implements JobService {
     return new JobsResponseDTO(appUser.getJobs());
   }
 
-  private AppUser findAvailableEmployeesOnDate(long date) throws NoEmployeeAvailableException {
+  private Set<AppUser> findAvailableEmployeesOnDate(long date) throws NoEmployeeAvailableException {
     List<AppUser> employees = new ArrayList<>(this.appUserService.findAllEmployees());
-    this.jobRepository.findAllByDate(date).forEach(job -> employees.remove(job.getEmployee()));
+    this.jobRepository.findAllByDate(date)
+        .forEach(job -> job.getEmployees()
+            .forEach(employees::remove));
     if (employees.size() == 0) {
       throw new NoEmployeeAvailableException();
     }
-    return employees.get(0);
+    return new HashSet<>(employees);
   }
 
   private Tool findAvailableToolsOnDate(long date) throws NoToolAvailableException {
@@ -72,7 +76,7 @@ public class JobServiceImpl implements JobService {
     // TODO date validation
     AppUser customer = this.appUserService.findByUsername(customerName);
     Tool tool = this.findAvailableToolsOnDate(request.getDate());
-    AppUser employee = this.findAvailableEmployeesOnDate(request.getDate());
+    Set<AppUser> employee = this.findAvailableEmployeesOnDate(request.getDate());
     Job job = JobFactory.orderJob(request.getType(), employee, tool, request);
     job.setCustomer(customer);
     return this.jobRepository.save(job);
