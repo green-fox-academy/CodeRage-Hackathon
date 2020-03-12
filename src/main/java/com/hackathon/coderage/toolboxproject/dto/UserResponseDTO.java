@@ -9,10 +9,8 @@ import lombok.NoArgsConstructor;
 public class UserResponseDTO extends ResponseDTO {
 
   private String username;
-  private String role;
 
   public UserResponseDTO(AppUser user) {
     this.username = user.getUsername();
-    this.role = user.getRole();
   }
 }
