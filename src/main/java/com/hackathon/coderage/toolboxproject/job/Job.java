@@ -54,7 +54,6 @@ public abstract class Job {
       inverseJoinColumns = @JoinColumn(
           name = "tool_id",
           referencedColumnName = "id"))
-  @JoinColumn(name = "tool_id", referencedColumnName = "id")
   private Set<Tool> tools;
 
   @ManyToOne
