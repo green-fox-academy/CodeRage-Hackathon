@@ -1,8 +1,8 @@
-package com.hackathon.coderage.toolboxproject.job.jobtypes;
+package com.hackathon.coderage.toolboxproject.order.jobtypes;
 
 import com.hackathon.coderage.toolboxproject.appuser.AppUser;
-import com.hackathon.coderage.toolboxproject.dto.JobRequestDTO;
-import com.hackathon.coderage.toolboxproject.job.Job;
+import com.hackathon.coderage.toolboxproject.dto.OrderRequestDTO;
+import com.hackathon.coderage.toolboxproject.order.Order;
 import com.hackathon.coderage.toolboxproject.tool.Tool;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -14,9 +14,9 @@ import lombok.Setter;
 @Setter
 @Entity
 @NoArgsConstructor
-public class Construction extends Job {
+public class Carpenter extends Order {
 
-  public Construction(Set<AppUser> employees, Set<Tool> tools, JobRequestDTO request) {
+  public Carpenter(Set<AppUser> employees, Set<Tool> tools, OrderRequestDTO request) {
     super(employees, tools, request);
   }
 }
