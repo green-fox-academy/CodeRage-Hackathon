@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ToolRepository extends CrudRepository<Tool, Long> {
 
-  List<Tool> findAllByName(String name);
+  List<Tool> findAllByNameOrderByDailyPriceAsc(String name);
 
   List<Tool> findAll();
 }
