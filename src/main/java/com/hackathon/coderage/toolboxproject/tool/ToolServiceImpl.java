@@ -35,7 +35,7 @@ public class ToolServiceImpl implements ToolService {
 
   @Override
   public List<Tool> findAllByName(String name) {
-    return this.toolRepository.findAllByName(name);
+    return this.toolRepository.findAllByNameOrderByDailyPriceAsc(name);
   }
 
   @Override
