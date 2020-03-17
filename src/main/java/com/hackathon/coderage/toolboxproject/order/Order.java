@@ -1,7 +1,6 @@
 package com.hackathon.coderage.toolboxproject.order;
 
 import com.hackathon.coderage.toolboxproject.appuser.AppUser;
-import com.hackathon.coderage.toolboxproject.dto.OrderRequestDTO;
 import com.hackathon.coderage.toolboxproject.tool.Tool;
 import java.util.Date;
 import java.util.Set;
@@ -26,7 +25,7 @@ import org.springframework.data.annotation.CreatedDate;
 @Setter
 @NoArgsConstructor
 @Table(name = "orders")
-public abstract class Order {
+public class Order {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,9 +66,12 @@ public abstract class Order {
   @CreatedDate
   private Date createdAt = new Date();
 
-  public Order(Set<AppUser> employees, Set<Tool> tools, OrderRequestDTO request) {
+  public Order(AppUser customer, Set<AppUser> employees, Set<Tool> tools, long date) {
+    this.customer = customer;
     this.employees = employees;
     this.tools = tools;
-    this.date = request.getDate();
+    this.date = date;
+    this.price = employees.stream().mapToLong(AppUser::getDailyWage).sum() +
+        tools.stream().mapToLong(Tool::getDailyPrice).sum();
   }
 }

@@ -42,9 +42,10 @@ public class OrderController {
       @RequestBody(required = false) OrderRequestDTO requestDTO, Principal principal) {
     try {
       return ResponseEntity.status(HttpStatus.OK)
-          .body(new OrderResponseDTO(this.orderService.createOrder(requestDTO, principal.getName())));
-    } catch (NoToolAvailableException | NoEmployeeAvailableException
-        | IncorrectJobTypeException e) {
+          .body(
+              new OrderResponseDTO(this.orderService.createOrder(requestDTO, principal.getName())));
+    } catch (NoToolAvailableException | NoEmployeeAvailableException |
+        IncorrectJobTypeException e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
           .body(new ErrorResponseDTO("error", e.getMessage()));
     }
