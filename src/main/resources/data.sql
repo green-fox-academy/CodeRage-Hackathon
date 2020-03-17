@@ -12,9 +12,14 @@ VALUES ('admin', 999, '$2a$10$AUDofg41ZNClzkARuRkiq.uzE/33ACdXTsoK9Bka382fU9owY1
 
 INSERT INTO tools (daily_price, name)
 VALUES (43, 'saw'),
+       (53, 'saw'),
        (41, 'lesserSaw'),
        (88, 'hammer'),
+       (9, 'hammer'),
        (66, 'axe'),
        (999, 'rotacioskapa'),
        (1, 'mop'),
        (99999, 'tractor');
+
+INSERT INTO job_types(CREW_SIZE, NAME, REQUIRED_QUALIFICATION, REQUIRED_TOOLS)
+VALUES (3, 'carpenter', 'carpenter', 'saw;hammer');
