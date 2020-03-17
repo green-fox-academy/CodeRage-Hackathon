@@ -1,9 +1,9 @@
-package com.hackathon.coderage.toolboxproject.job;
+package com.hackathon.coderage.toolboxproject.order;
 
 import com.hackathon.coderage.toolboxproject.appuser.AppUser;
 import com.hackathon.coderage.toolboxproject.appuser.AppUserService;
-import com.hackathon.coderage.toolboxproject.dto.JobRequestDTO;
-import com.hackathon.coderage.toolboxproject.dto.JobsResponseDTO;
+import com.hackathon.coderage.toolboxproject.dto.OrderRequestDTO;
+import com.hackathon.coderage.toolboxproject.dto.OrdersResponseDTO;
 import com.hackathon.coderage.toolboxproject.exceptions.IncorrectJobTypeException;
 import com.hackathon.coderage.toolboxproject.exceptions.NoEmployeeAvailableException;
 import com.hackathon.coderage.toolboxproject.exceptions.NoToolAvailableException;
@@ -16,44 +16,44 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 
 @Service
-public class JobServiceImpl implements JobService {
+public class OrderServiceImpl implements OrderService {
 
-  private JobRepository jobRepository;
+  private OrderRepository orderRepository;
   private AppUserService appUserService;
   private ToolService toolService;
 
-  public JobServiceImpl(JobRepository jobRepository,
+  public OrderServiceImpl(OrderRepository orderRepository,
       AppUserService appUserService, ToolService toolService) {
-    this.jobRepository = jobRepository;
+    this.orderRepository = orderRepository;
     this.appUserService = appUserService;
     this.toolService = toolService;
   }
 
   @Override
-  public List<Job> listAllJobs() {
-    return this.jobRepository.findAll();
+  public List<Order> listAllOrders() {
+    return this.orderRepository.findAll();
   }
 
   @Override
-  public List<Job> listAllJobsByCustomer(String username) {
-    return this.jobRepository.findAllByCustomerUsername(username);
+  public List<Order> listAllOrdersByCustomer(String username) {
+    return this.orderRepository.findAllByCustomerUsername(username);
   }
 
   @Override
-  public JobsResponseDTO listAllJobsForAdmin() {
-    return new JobsResponseDTO(this.listAllJobs());
+  public OrdersResponseDTO listAllOrdersForAdmin() {
+    return new OrdersResponseDTO(this.listAllOrders());
   }
 
   @Override
-  public JobsResponseDTO jobsByUser(String username) {
+  public OrdersResponseDTO jobsByUser(String username) {
     AppUser appUser = this.appUserService.findByUsername(username);
-    return new JobsResponseDTO(appUser.getJobs());
+    return new OrdersResponseDTO(appUser.getOrders());
   }
 
   private Set<AppUser> findAvailableEmployeesOnDate(long date) throws NoEmployeeAvailableException {
     List<AppUser> employees = new ArrayList<>(this.appUserService.findAllEmployees());
-    this.jobRepository.findAllByDate(date)
-        .forEach(job -> job.getEmployees()
+    this.orderRepository.findAllByDate(date)
+        .forEach(order -> order.getEmployees()
             .forEach(employees::remove));
     if (employees.size() == 0) {
       throw new NoEmployeeAvailableException();
@@ -63,8 +63,8 @@ public class JobServiceImpl implements JobService {
 
   private Set<Tool> findAvailableToolsOnDate(long date) throws NoToolAvailableException {
     List<Tool> tools = new ArrayList<>(this.toolService.findAll());
-    this.jobRepository.findAllByDate(date)
-        .forEach(job -> job.getTools()
+    this.orderRepository.findAllByDate(date)
+        .forEach(order -> order.getTools()
             .forEach(tools::remove));
     if (tools.size() == 0) {
       throw new NoToolAvailableException();
@@ -73,14 +73,14 @@ public class JobServiceImpl implements JobService {
   }
 
   @Override
-  public Job createJob(JobRequestDTO request, String customerName)
+  public Order createOrder(OrderRequestDTO request, String customerName)
       throws NoEmployeeAvailableException, NoToolAvailableException, IncorrectJobTypeException {
     // TODO date validation
     AppUser customer = this.appUserService.findByUsername(customerName);
     Set<Tool> tools = this.findAvailableToolsOnDate(request.getDate());
     Set<AppUser> employees = this.findAvailableEmployeesOnDate(request.getDate());
-    Job job = JobFactory.orderJob(request.getType(), employees, tools, request);
-    job.setCustomer(customer);
-    return this.jobRepository.save(job);
+    Order order = OrderFactory.orderJob(request.getType(), employees, tools, request);
+    order.setCustomer(customer);
+    return this.orderRepository.save(order);
   }
 }

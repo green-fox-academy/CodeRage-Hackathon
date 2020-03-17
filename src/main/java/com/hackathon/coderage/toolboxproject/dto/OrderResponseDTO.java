@@ -1,6 +1,6 @@
 package com.hackathon.coderage.toolboxproject.dto;
 
-import com.hackathon.coderage.toolboxproject.job.Job;
+import com.hackathon.coderage.toolboxproject.order.Order;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class JobResponseDTO extends ResponseDTO {
+public class OrderResponseDTO extends ResponseDTO {
 
   private long id;
   private String customerName;
@@ -20,17 +20,17 @@ public class JobResponseDTO extends ResponseDTO {
   private Set<ToolResponseDTO> tools;
   private Set<UserResponseDTO> employees;
 
-  public JobResponseDTO(Job job) {
-    this.id = job.getId();
-    this.customerName = job.getCustomer().getFullName();
-    this.type = job.getClass().getSimpleName();
-    this.status = job.getStatus();
-    this.price = job.getPrice();
-    this.tools = job.getTools()
+  public OrderResponseDTO(Order order) {
+    this.id = order.getId();
+    this.customerName = order.getCustomer().getFullName();
+    this.type = order.getClass().getSimpleName();
+    this.status = order.getStatus();
+    this.price = order.getPrice();
+    this.tools = order.getTools()
         .stream()
         .map(ToolResponseDTO::new)
         .collect(Collectors.toSet());
-    this.employees = job.getEmployees()
+    this.employees = order.getEmployees()
         .stream()
         .map(UserResponseDTO::new)
         .collect(Collectors.toSet());

@@ -1,6 +1,6 @@
 package com.hackathon.coderage.toolboxproject.tool;
 
-import com.hackathon.coderage.toolboxproject.job.Job;
+import com.hackathon.coderage.toolboxproject.order.Order;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
@@ -28,7 +28,7 @@ public class Tool {
   private int dailyPrice;
 
   @ManyToMany(mappedBy = "tools")
-  private List<Job> jobs = new ArrayList<>();
+  private List<Order> orders = new ArrayList<>();
 
   public Tool(String name, int dailyPrice) {
     this.name = name;

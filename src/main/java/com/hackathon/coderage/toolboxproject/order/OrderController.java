@@ -1,9 +1,9 @@
-package com.hackathon.coderage.toolboxproject.job;
+package com.hackathon.coderage.toolboxproject.order;
 
 import com.hackathon.coderage.toolboxproject.dto.ErrorResponseDTO;
-import com.hackathon.coderage.toolboxproject.dto.JobRequestDTO;
-import com.hackathon.coderage.toolboxproject.dto.JobResponseDTO;
-import com.hackathon.coderage.toolboxproject.dto.JobsResponseDTO;
+import com.hackathon.coderage.toolboxproject.dto.OrderRequestDTO;
+import com.hackathon.coderage.toolboxproject.dto.OrderResponseDTO;
+import com.hackathon.coderage.toolboxproject.dto.OrdersResponseDTO;
 import com.hackathon.coderage.toolboxproject.dto.ResponseDTO;
 import com.hackathon.coderage.toolboxproject.exceptions.IncorrectJobTypeException;
 import com.hackathon.coderage.toolboxproject.exceptions.NoEmployeeAvailableException;
@@ -17,32 +17,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class JobController {
+public class OrderController {
 
-  private JobService jobService;
+  private OrderService orderService;
 
-  public JobController(JobService jobService) {
-    this.jobService = jobService;
+  public OrderController(OrderService orderService) {
+    this.orderService = orderService;
   }
 
-  @GetMapping(value = "/jobs/admin") // needs admin roles
-  public ResponseEntity<JobsResponseDTO> listAllJobs() {
+  @GetMapping(value = "/orders/admin") // needs admin roles
+  public ResponseEntity<OrdersResponseDTO> listAllOrders() {
     return ResponseEntity.status(HttpStatus.OK)
-        .body(this.jobService.listAllJobsForAdmin());
+        .body(this.orderService.listAllOrdersForAdmin());
   }
 
-  @GetMapping(value = "/jobs") // needs privileged roles
-  public ResponseEntity<JobsResponseDTO> listAllJobsByUsername(Principal principal) {
+  @GetMapping(value = "/orders") // needs privileged roles
+  public ResponseEntity<OrdersResponseDTO> listAllOrdersByUsername(Principal principal) {
     return ResponseEntity.status(HttpStatus.OK)
-        .body(this.jobService.jobsByUser(principal.getName()));
+        .body(this.orderService.jobsByUser(principal.getName()));
   }
 
-  @PutMapping(value = "/job")
-  public ResponseEntity<ResponseDTO> createJob(
-      @RequestBody(required = false) JobRequestDTO requestDTO, Principal principal) {
+  @PutMapping(value = "/order")
+  public ResponseEntity<ResponseDTO> createOrder(
+      @RequestBody(required = false) OrderRequestDTO requestDTO, Principal principal) {
     try {
       return ResponseEntity.status(HttpStatus.OK)
-          .body(new JobResponseDTO(this.jobService.createJob(requestDTO, principal.getName())));
+          .body(new OrderResponseDTO(this.orderService.createOrder(requestDTO, principal.getName())));
     } catch (NoToolAvailableException | NoEmployeeAvailableException
         | IncorrectJobTypeException e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)

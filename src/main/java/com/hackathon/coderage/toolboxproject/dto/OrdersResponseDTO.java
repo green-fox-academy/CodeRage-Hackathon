@@ -1,6 +1,6 @@
 package com.hackathon.coderage.toolboxproject.dto;
 
-import com.hackathon.coderage.toolboxproject.job.Job;
+import com.hackathon.coderage.toolboxproject.order.Order;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class JobsResponseDTO extends ResponseDTO {
+public class OrdersResponseDTO extends ResponseDTO {
 
-  private List<Job> jobs;
+  private List<Order> orders;
 }

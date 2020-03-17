@@ -1,6 +1,6 @@
 package com.hackathon.coderage.toolboxproject.appuser;
 
-import com.hackathon.coderage.toolboxproject.job.Job;
+import com.hackathon.coderage.toolboxproject.order.Order;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -36,11 +36,11 @@ public class AppUser {
   private int dailyWage;
 
   @ManyToMany(mappedBy = "employees")
-  private List<Job> jobs = new ArrayList<>();
+  private List<Order> jobs = new ArrayList<>();
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
   @LazyCollection(LazyCollectionOption.FALSE)
-  private List<Job> orders = new ArrayList<>();
+  private List<Order> orders = new ArrayList<>();
 
   public AppUser(String username, String password, String fullName, String qualification) {
     this.username = username;

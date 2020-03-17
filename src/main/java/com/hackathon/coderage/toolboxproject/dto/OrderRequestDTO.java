@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class JobRequestDTO extends RequestDTO {
+public class OrderRequestDTO extends RequestDTO {
 
   private String type;
   private long date;

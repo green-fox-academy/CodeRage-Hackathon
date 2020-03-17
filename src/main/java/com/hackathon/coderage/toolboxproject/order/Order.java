@@ -1,7 +1,7 @@
-package com.hackathon.coderage.toolboxproject.job;
+package com.hackathon.coderage.toolboxproject.order;
 
 import com.hackathon.coderage.toolboxproject.appuser.AppUser;
-import com.hackathon.coderage.toolboxproject.dto.JobRequestDTO;
+import com.hackathon.coderage.toolboxproject.dto.OrderRequestDTO;
 import com.hackathon.coderage.toolboxproject.tool.Tool;
 import java.util.Date;
 import java.util.Set;
@@ -25,8 +25,8 @@ import org.springframework.data.annotation.CreatedDate;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "jobs")
-public abstract class Job {
+@Table(name = "orders")
+public abstract class Order {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public abstract class Job {
       cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinTable(name = "employees_jobs",
       joinColumns = @JoinColumn(
-          name = "job_id",
+          name = "order_id",
           referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(
           name = "appuser_id",
@@ -47,9 +47,9 @@ public abstract class Job {
   @ManyToMany(
       fetch = FetchType.EAGER,
       cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinTable(name = "tools_jobs",
+  @JoinTable(name = "tools_orders",
       joinColumns = @JoinColumn(
-          name = "job_id",
+          name = "order_id",
           referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(
           name = "tool_id",
@@ -67,7 +67,7 @@ public abstract class Job {
   @CreatedDate
   private Date createdAt = new Date();
 
-  public Job(Set<AppUser> employees, Set<Tool> tools, JobRequestDTO request) {
+  public Order(Set<AppUser> employees, Set<Tool> tools, OrderRequestDTO request) {
     this.employees = employees;
     this.tools = tools;
     this.date = request.getDate();
