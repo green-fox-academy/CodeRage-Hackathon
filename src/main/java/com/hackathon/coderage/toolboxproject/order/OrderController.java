@@ -12,7 +12,7 @@ import java.security.Principal;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,13 +37,13 @@ public class OrderController {
         .body(this.orderService.jobsByUser(principal.getName()));
   }
 
-  @PutMapping(value = "/order")
+  @PostMapping(value = "/order")
   public ResponseEntity<ResponseDTO> createOrder(
       @RequestBody(required = false) OrderRequestDTO requestDTO, Principal principal) {
     try {
       return ResponseEntity.status(HttpStatus.OK)
-          .body(
-              new OrderResponseDTO(this.orderService.createOrder(requestDTO, principal.getName())));
+          .body(new OrderResponseDTO(
+              this.orderService.createOrder(requestDTO, principal.getName())));
     } catch (NoToolAvailableException | NoEmployeeAvailableException |
         IncorrectJobTypeException e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
