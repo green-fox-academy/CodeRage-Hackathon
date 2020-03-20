@@ -24,4 +24,14 @@ public class JobType {
   private long crewSize;
   private String requiredTools;
   private String requiredQualification;
+
+  public JobType(String name,
+      long crewSize,
+      String requiredTools,
+      String requiredQualification) {
+    this.name = name;
+    this.crewSize = crewSize;
+    this.requiredTools = requiredTools;
+    this.requiredQualification = requiredQualification;
+  }
 }
