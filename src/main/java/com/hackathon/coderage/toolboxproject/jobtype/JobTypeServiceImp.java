@@ -51,4 +51,42 @@ public class JobTypeServiceImp implements JobTypeService {
             requestDTO.getRequiredQualification()));
   }
 
+  @Override
+  public JobType updateJobType(JobTypeRequestDTO requestDTO, String jobName)
+      throws BadInputException {
+    if (requestDTO == null || jobName.isBlank()) {
+      throw new BadInputException();
+    }
+    boolean wasModified = false;
+
+    JobType jobType = this.repository.findByNameIgnoreCase(jobName);
+
+    if (jobType == null) {
+      throw new BadInputException();
+    }
+    if (requestDTO.getName() != null && !requestDTO.getName().isBlank()) {
+      jobType.setName(requestDTO.getName());
+      wasModified = true;
+    }
+    if (requestDTO.getRequiredQualification() != null &&
+        !requestDTO.getRequiredQualification().isBlank()) {
+      jobType.setRequiredQualification(requestDTO.getRequiredQualification());
+      wasModified = true;
+    }
+    if (requestDTO.getRequiredTools() != null &&
+        !requestDTO.getRequiredTools().isBlank()) {
+      jobType.setRequiredTools(requestDTO.getRequiredTools());
+      wasModified = true;
+    }
+    if (requestDTO.getCrewSize() != 0) {
+      jobType.setCrewSize(requestDTO.getCrewSize());
+      wasModified = true;
+    }
+    if (wasModified) {
+      return this.repository.save(jobType);
+    } else {
+      throw new BadInputException();
+    }
+  }
+
 }
