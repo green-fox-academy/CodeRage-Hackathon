@@ -13,4 +13,6 @@ public interface JobTypeService {
   List<JobTypeResponseDTO> listAllJobTypesInDTO();
 
   JobType createJobType(JobTypeRequestDTO requestDTO) throws BadInputException;
+
+  JobType updateJobType(JobTypeRequestDTO requestDTO, String jobName) throws BadInputException;
 }
